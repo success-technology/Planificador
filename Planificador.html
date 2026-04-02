@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planificador de Tareas</title>
+    <link rel="stylesheet" href="Actividad.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <span class="label">Planificador Personal de JHOIMAR</span>
+    <h1>Diario de <em>Tareas</em></h1>
+    <div class="date-today" id="dateDisplay"></div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="showPanel('tasks',this)">
+      Tareas <span class="badge" id="badgeTasks" data-count="0">0</span>
+    </button>
+    <button onclick="showPanel('history',this)">
+      Historial <span class="badge" id="badgeHistory" data-count="0">0</span>
+    </button>
+  </nav>
+
+  <!-- PANEL TAREAS -->
+  <div class="panel active" id="panel-tasks">
+    <div class="add-form">
+      <h2>+ Nueva tarea</h2>
+      <div class="form-row">
+        <input type="text" id="taskInput" placeholder="¿Qué necesitas hacer?" maxlength="200" autocomplete="off"/>
+        <div class="date-select-group">
+          <button class="date-btn selected" id="btnToday" onclick="selectDate('today')">Hoy</button>
+          <button class="date-btn" id="btnTomorrow" onclick="selectDate('tomorrow')">Mañana</button>
+        </div>
+        <button class="add-btn" onclick="addTask()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Agregar
+        </button>
+      </div>
+      <div class="error-msg" id="errorMsg">⚠ Escribe una tarea antes de agregar.</div>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap" style="display:none">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+      <span class="progress-text" id="progressText">0 / 0</span>
+    </div>
+
+    <div class="task-group" id="groupToday">
+      <div class="section-label">Hoy</div>
+      <div class="task-list" id="listToday"></div>
+    </div>
+
+    <div class="task-group" id="groupTomorrow">
+      <div class="section-label">Mañana</div>
+      <div class="task-list" id="listTomorrow"></div>
+    </div>
+
+    <div class="empty-state" id="emptyTasks" style="display:none">
+      <span class="icon">📋</span>
+      <p>Sin tareas pendientes</p>
+      <small>Agrega algo para comenzar el día</small>
+    </div>
+  </div>
+
+  <!-- PANEL HISTORIAL -->
+  <div class="panel" id="panel-history">
+    <div id="historyContent"></div>
+    <div class="empty-state" id="emptyHistory" style="display:none">
+      <span class="icon">🗂️</span>
+      <p>El historial está vacío</p>
+      <small>Las tareas pasadas aparecerán aquí</small>
+    </div>
+    <button class="history-clear-btn" id="clearHistoryBtn" onclick="clearHistory()" style="display:none">
+      Limpiar historial completo
+    </button>
+  </div>
+
+  <div class="footer-note">Los datos se guardan localmente en tu navegador · Diario de Tareas</div>
+</div>
+
+<div id="toast"></div>
+<script src="Actividad.js" module="type"></script>
+</body>
+</html>
